@@ -64,7 +64,7 @@ export const Header = ({
     <HeaderWrapper>
       <LogoWrapper>
         <SnapLogo color={theme.colors.icon?.default} size={36} />
-        <Title>template-snap</Title>
+        <Title>BTC wallet snaps demo</Title>
       </LogoWrapper>
       <RightContainer>
         <Toggle

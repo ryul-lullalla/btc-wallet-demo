@@ -27,7 +27,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       <Wrapper>
         <Header handleToggleClick={toggleTheme} />
         {children}
-        <Footer />
+        {/* <Footer />*/}
       </Wrapper>
     </>
   );

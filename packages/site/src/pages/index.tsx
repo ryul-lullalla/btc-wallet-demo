@@ -7,11 +7,13 @@ import {
   ReconnectButton,
   SendHelloButton,
   Card,
+  GetAddressButton,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
   connectSnap,
+  getAddress,
   getSnap,
   isLocalSnap,
   sendHello,
@@ -109,6 +111,8 @@ const Index = () => {
     ? state.isFlask
     : state.snapsDetected;
 
+  console.log({ isMetaMaskReady });
+
   const handleConnectClick = async () => {
     try {
       await connectSnap();
@@ -133,14 +137,16 @@ const Index = () => {
     }
   };
 
+  const getBitcoinAddress = async () => {
+    const address = await getAddress();
+    console.log({ address });
+  };
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Make BTC wallet address with <Span>Metamask Snaps</Span>
       </Heading>
-      <Subtitle>
-        Get started by editing <code>src/index.ts</code>
-      </Subtitle>
+
       <CardContainer>
         {state.error && (
           <ErrorMessage>
@@ -158,22 +164,22 @@ const Index = () => {
             fullWidth
           />
         )}
-        {!state.installedSnap && (
-          <Card
-            content={{
-              title: 'Connect',
-              description:
-                'Get started by connecting to and installing the example snap.',
-              button: (
-                <ConnectButton
-                  onClick={handleConnectClick}
-                  disabled={!isMetaMaskReady}
-                />
-              ),
-            }}
-            disabled={!isMetaMaskReady}
-          />
-        )}
+        {/* {!state.installedSnap && (*/}
+        {/*  <Card*/}
+        {/*    content={{*/}
+        {/*      title: 'Connect',*/}
+        {/*      description:*/}
+        {/*        'Get started by connecting to and installing the example snap.',*/}
+        {/*      button: (*/}
+        {/*        <ConnectButton*/}
+        {/*          onClick={handleConnectClick}*/}
+        {/*          disabled={!isMetaMaskReady}*/}
+        {/*        />*/}
+        {/*      ),*/}
+        {/*    }}*/}
+        {/*    disabled={!isMetaMaskReady}*/}
+        {/*  />*/}
+        {/* )}*/}
         {shouldDisplayReconnectButton(state.installedSnap) && (
           <Card
             content={{
@@ -192,31 +198,109 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Send Hello message',
+            title: 'Get All Bitcoin Address',
             description:
-              'Display a custom message within a confirmation screen in MetaMask.',
+              'get all P2WPKH, P2SH-P2WPKH, P2RT and P2PKH address types',
             button: (
-              <SendHelloButton
+              <GetAddressButton
+                onClick={async () => getBitcoinAddress()}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          // fullWidth={
+          //   isMetaMaskReady &&
+          //   Boolean(state.installedSnap) &&
+          //   !shouldDisplayReconnectButton(state.installedSnap)
+          // }
+          fullWidth={true}
+        />
+        <Card
+          content={{
+            title: 'Get Native Segwit (P2WPKH) Address',
+            description: 'get P2WPKH address type',
+            button: (
+              <GetAddressButton
                 onClick={handleSendHelloClick}
                 disabled={!state.installedSnap}
               />
             ),
           }}
           disabled={!state.installedSnap}
-          fullWidth={
-            isMetaMaskReady &&
-            Boolean(state.installedSnap) &&
-            !shouldDisplayReconnectButton(state.installedSnap)
-          }
+          // fullWidth={
+          //   isMetaMaskReady &&
+          //   Boolean(state.installedSnap) &&
+          //   !shouldDisplayReconnectButton(state.installedSnap)
+          // }
+          // fullWidth={true}
         />
-        <Notice>
-          <p>
-            Please note that the <b>snap.manifest.json</b> and{' '}
-            <b>package.json</b> must be located in the server root directory and
-            the bundle must be hosted at the location specified by the location
-            field.
-          </p>
-        </Notice>
+        <Card
+          content={{
+            title: 'Get Nested Segwit (P2SH-P2WPKH) Address',
+            description: 'get P2SH-P2WPKH address type',
+            button: (
+              <GetAddressButton
+                onClick={handleSendHelloClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          // fullWidth={
+          //   isMetaMaskReady &&
+          //   Boolean(state.installedSnap) &&
+          //   !shouldDisplayReconnectButton(state.installedSnap)
+          // }
+          // fullWidth={true}
+        />
+        <Card
+          content={{
+            title: 'Get Taproot (P2RT) Address',
+            description: 'get P2RT address type',
+            button: (
+              <GetAddressButton
+                onClick={handleSendHelloClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          // fullWidth={
+          //   isMetaMaskReady &&
+          //   Boolean(state.installedSnap) &&
+          //   !shouldDisplayReconnectButton(state.installedSnap)
+          // }
+          // fullWidth={true}
+        />
+        <Card
+          content={{
+            title: 'Get Legacy (P2PKH) Address',
+            description: 'get P2PKH address type',
+            button: (
+              <GetAddressButton
+                onClick={handleSendHelloClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          // fullWidth={
+          //   isMetaMaskReady &&
+          //   Boolean(state.installedSnap) &&
+          //   !shouldDisplayReconnectButton(state.installedSnap)
+          // }
+          // fullWidth={true}
+        />
+
+        {/* <Notice>*/}
+        {/*  <p>*/}
+        {/*    Please note that the <b>snap.manifest.json</b> and{' '}*/}
+        {/*    <b>package.json</b> must be located in the server root directory and*/}
+        {/*    the bundle must be hosted at the location specified by the location*/}
+        {/*    field.*/}
+        {/*  </p>*/}
+        {/* </Notice>*/}
       </CardContainer>
     </Container>
   );

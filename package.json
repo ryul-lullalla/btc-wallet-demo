@@ -26,6 +26,15 @@
     "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
     "test": "yarn workspace snap run test"
   },
+  "dependencies": {
+    "@metamask/key-tree": "9.0.0",
+    "@metamask/snaps-types": "3.1.0",
+    "@metamask/snaps-ui": "^3.1.0",
+    "bitcoinjs-lib": "6.1.5",
+    "buffer": "^6.0.3",
+    "coininfo": "^5.2.1",
+    "envify": "^4.1.0"
+  },
   "devDependencies": {
     "@lavamoat/allow-scripts": "^3.0.0",
     "@lavamoat/preinstall-always-fail": "^2.0.0",
